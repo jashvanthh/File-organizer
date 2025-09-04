@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Digital Archive</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Basic styling for the login/register forms */
+        .auth-container {
+            background-color: var(--card-background);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px var(--shadow-color);
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 400px;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: center;
+        }
+        .auth-container h1 {
+            color: var(--primary-purple);
+            margin-bottom: 1.5rem;
+        }
+        .auth-form .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 0.5rem;
+        }
+        .auth-form .form-group label {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        .auth-form .form-group input[type="text"],
+        .auth-form .form-group input[type="password"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--input-border);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            box-sizing: border-box; /* Include padding in width */
+        }
+        .auth-form .form-group input[type="text"]:focus,
+        .auth-form .form-group input[type="password"]:focus {
+            border-color: var(--light-purple);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+        .auth-form button {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        .auth-links {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+        .auth-links a {
+            color: var(--primary-purple);
+            text-decoration: none;
+        }
+        .auth-links a:hover {
+            text-decoration: underline;
+        }
+        .flash-messages {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            margin-bottom: 1rem;
+        }
+        .flash-messages li {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            text-align: left;
+        }
+        .flash-messages li.success {
+            background-color: #D1FAE5; /* green-100 */
+            color: #065F46; /* green-700 */
+            border: 1px solid #34D399; /* green-400 */
+        }
+        .flash-messages li.error {
+            background-color: #FEE2E2; /* red-100 */
+            color: #991B1B; /* red-700 */
+            border: 1px solid #F87171; /* red-400 */
+        }
+        .flash-messages li.info {
+            background-color: #DBEAFE; /* blue-100 */
+            color: #1E40AF; /* blue-700 */
+            border: 1px solid #60A5FA; /* blue-400 */
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <h1>Welcome to Digtial Archive</h1>
+        <h3>Please login to acceess</h3>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% endif %}
+        {% endwith %}
+        <form class="auth-form" method="POST" action="{{ url_for('login') }}">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <div class="auth-links">
+            Don't have an account? <a href="{{ url_for('register') }}">Register here</a>.
+        </div>
+    </div>
+</body>
+</html>
